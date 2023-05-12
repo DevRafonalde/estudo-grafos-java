@@ -15,6 +15,9 @@ public class Livro implements INode {
         JFrame tela = new JFrame();
         tela.setSize(400,600);
         tela.setVisible(true);
+        JLabel teste = new JLabel();
+        teste.setText(numero);
+        tela.add(teste);
         return tela;
     }
 

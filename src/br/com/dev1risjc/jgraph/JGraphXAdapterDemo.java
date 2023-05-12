@@ -4,8 +4,6 @@ import com.mxgraph.layout.mxCompactTreeLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import org.jgrapht.ListenableGraph;
-import org.jgrapht.event.GraphVertexChangeEvent;
-import org.jgrapht.event.VertexSetListener;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -30,14 +28,16 @@ public class JGraphXAdapterDemo extends JFrame {
         frame.setVisible(true);
     }
 
+//    LEMBRAR DE PEDIR ISSO AQUI
+//    public void init(JPopupMenu popupMenu) {
     public void init() {
+        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu.setFont(new java.awt.Font("Trebuchet MS", Font.PLAIN, 12)); // NOI18N
 
-        String traAtual = "traAtual";
-
-        String traAnterior1 = "traAnterior1";
-        String traAnterior2 = "traAnterior2";
-        String traPosterior1 = "traPosterior1";
-        String traPosterior2 = "traPosterior2";
+        JMenuItem menuItem = new JMenuItem();
+        menuItem.setFont(new java.awt.Font("Trebuchet MS", Font.PLAIN, 12)); // NOI18N
+        menuItem.setText("Abrir Pasta");
+        popupMenu.add(menuItem);
 
         ListenableGraph<INode, DefaultEdge> g = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
 
@@ -48,39 +48,55 @@ public class JGraphXAdapterDemo extends JFrame {
             @Override
             protected void installDoubleClickHandler(){
                 this.graphControl.addMouseListener(new MouseAdapter() {
-                    public void mouseReleased(MouseEvent var1) {
-                        System.out.println("teste");
-                        mxCell cell = (mxCell) getGraph().getSelectionModel().getCell();
-                        System.out.println(cell.getValue());
 
-                        INode livro = new Livro("10");
-                        livro.AcaoCliqueDuplo();
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                            mxCell cell = (mxCell) getGraph().getSelectionModel().getCell();
+                            System.out.println(cell.getValue());
 
+                            INode livro = new Livro(cell.getValue().toString());
+                            livro.AcaoCliqueDuplo();
+                        }
+                    }
+
+                    private void showPopupMenu(MouseEvent e) {
+                        popupMenu.show(graphControl, e.getX(), e.getY());
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        if (e.isPopupTrigger()) {
+                            showPopupMenu(e);
+                        }
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        if (e.isPopupTrigger()) {
+                            showPopupMenu(e);
+                        }
                     }
                 });
             }
         };
+
         component.setConnectable(false);
         component.getGraph().setAllowDanglingEdges(false);
         getContentPane().add(component);
 
-
         INode n1 = new Livro("10");
         INode n2 = new Livro("20");
-
 
         g.addVertex(n1);
         g.addVertex(n2);
 
         g.addEdge(n1, n2);
 
-
         mxCompactTreeLayout layout = new mxCompactTreeLayout(jgxAdapter);
-
         layout.setHorizontal(false);
         layout.setEdgeRouting(false);
         layout.setNodeDistance(100);
-
         layout.execute(jgxAdapter.getDefaultParent());
     }
 }
