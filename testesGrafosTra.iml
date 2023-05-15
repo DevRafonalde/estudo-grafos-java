@@ -12,5 +12,6 @@
     <orderEntry type="library" name="jgraphx" level="project" />
     <orderEntry type="library" name="jgrapht-ext-1.5.2" level="project" />
     <orderEntry type="library" name="jsoup-1.15.3" level="project" />
+    <orderEntry type="library" name="dozer-core-6.5.2" level="project" />
   </component>
 </module>
