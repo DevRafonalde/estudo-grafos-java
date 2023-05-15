@@ -4,6 +4,8 @@ import br.com.dev1risjc.jgraph.helpers.mapper.DozerMapper;
 import com.mxgraph.layout.mxCompactTreeLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxConstants;
+import com.mxgraph.view.mxStylesheet;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -16,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 public class GeradorGrafo <O> extends JFrame {
@@ -91,6 +94,11 @@ public class GeradorGrafo <O> extends JFrame {
                 });
             }
         };
+
+        mxStylesheet stylesheet = component.getGraph().getStylesheet();
+        Hashtable<String, Object> style = new Hashtable<>();
+        style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_RECTANGLE);
+        stylesheet.putCellStyle("ROUNDED", style);
 
         component.setConnectable(false);
         component.getGraph().setAllowDanglingEdges(false);
