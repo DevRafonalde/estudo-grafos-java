@@ -8,7 +8,7 @@ public class ModuloFrameImpl implements IModuloFrame {
 
     GeradorGrafo telaGrafos;
 
-    public ModuloFrameImpl(List<JMenuItem> itensPopup, HashMap<Livro, Livro> filiacoes) {
+    public <O> ModuloFrameImpl(List<JMenuItem> itensPopup, HashMap<O, O> filiacoes) {
         this.telaGrafos = new GeradorGrafo(itensPopup, filiacoes);
         telaGrafos.init();
         telaGrafos.setLocationRelativeTo(null);

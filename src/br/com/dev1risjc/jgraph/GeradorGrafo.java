@@ -1,5 +1,6 @@
 package br.com.dev1risjc.jgraph;
 
+import br.com.dev1risjc.jgraph.helpers.mapper.DozerMapper;
 import com.mxgraph.layout.mxCompactTreeLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class GeradorGrafo extends JFrame {
+public class GeradorGrafo <O> extends JFrame {
 
     List<JMenuItem> itensPopup;
     ListenableGraph<INode, DefaultEdge> grafo;
@@ -26,9 +27,9 @@ public class GeradorGrafo extends JFrame {
 
     private static final Dimension DEFAULT_SIZE = new Dimension(530, 330);
 
-    public GeradorGrafo(List<JMenuItem> itensPopup, HashMap<Livro, Livro> filiacoes) {
+    public GeradorGrafo(List<JMenuItem> itensPopup, HashMap<O, O> filiacoes) {
         this.itensPopup = itensPopup;
-        this.filiacoes = filiacoes;
+        this.filiacoes = DozerMapper.parseHashMapObject(filiacoes, Livro.class);
     }
 
 //    public static void main(String[] args) {
