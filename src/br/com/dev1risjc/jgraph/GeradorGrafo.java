@@ -35,15 +35,15 @@ public class GeradorGrafo <O> extends JFrame {
         this.filiacoes = DozerMapper.parseHashMapObject(filiacoes, Livro.class);
     }
 
-//    public static void main(String[] args) {
-//        GeradorGrafo frame = new GeradorGrafo(new ArrayList<>(), new HashMap<>());
-//        frame.init();
-//        frame.setLocationRelativeTo(null);
-//        frame.setTitle("JGraphT Adapter to JGraphX Demo");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.pack();
-//        frame.setVisible(true);
-//    }
+    public static void main(String[] args) {
+        GeradorGrafo frame = new GeradorGrafo(new ArrayList<>(), new HashMap<>());
+        frame.init();
+        frame.setLocationRelativeTo(null);
+        frame.setTitle("JGraphT Adapter to JGraphX Demo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
 
     public void init() {
         JPopupMenu popupMenu = new JPopupMenu();
